@@ -1,0 +1,28 @@
+﻿@page "/CRDWebAdmin"
+<h3>CRDWebAdmin</h3>
+@inject IJSRuntime JS
+
+<button id="downloadButton" @onclick="DownloadFiles">Download Files</button>
+
+@code {
+    private async Task DownloadFiles()
+    {
+        await JS.InvokeVoidAsync("downloadFileFromURL", "https://example.org");
+    }
+}
+
+
+<script>
+    window.downloadFileFromURL = function (url) {
+        fetch(url, { mode: 'no-cors' })  // Setting the fetch mode to 'no-cors'
+            .then(response => response.blob())
+            .then(blob => {
+                const objectURL = window.URL.createObjectURL(blob);
+                window.open(objectURL, '_blank');  // Open the ObjectURL in a new tab
+                window.URL.revokeObjectURL(objectURL);  // Clean up the ObjectURL
+            })
+            .catch(err => console.error('Error downloading and opening file:', err));
+    };
+
+
+</script>
