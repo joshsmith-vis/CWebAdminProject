@@ -1,0 +1,758 @@
+
+
+
+
+
+<!-- This file basically replaces the struts/tile that links between the components -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Charles River Diagnostics - Blotter&#x20;Refresh</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=9" />
+        <link rel="icon" href="/crts/public/images/crd_icon_32.png" type="image/gif" sizes="32x32">
+        <link href="/crts/public/js/jsdojo/dojo/resources/dojo.css" type="text/css" rel="stylesheet" />
+        <link href="/crts/public/js/jsdojo/dijit/themes/claro/claro.css" type="text/css" rel="stylesheet" />
+        <link href="/crts/public/css/admin.css" type="text/css" rel="stylesheet" />
+        <link href="/crts/public/css/admin_topmenu.css" type="text/css" rel="stylesheet" />
+        <link href="/crts/public/css/admin_treenode.css" type="text/css" rel="stylesheet" />
+        <link href="/crts/public/css/admin_tbl.css" type="text/css" rel="stylesheet" />
+        <link href="/crts/public/css/admin_frm.css" type="text/css" rel="stylesheet" />
+        <link href="/crts/public/css/admin_tbl.css" rel="stylesheet">
+        <script type="text/javascript" src="/crts/public/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/crts/public/js/prototype.js"></script>
+        <script type="text/javascript" src="/crts/public/js/ajax.js"></script>
+        <script type="text/javascript" src="/crts/public/js/admin.js"></script>
+        <script type="text/javascript" src="/crts/public/js/main.js"></script>
+        <script type="text/javascript" src="/crts/public/js/topmenu.js"></script>
+        <script type="text/javascript" src="/crts/public/js/jsdojo/dojo/dojo.js" data-dojo-config="parseOnLoad: true"></script>
+        <script type="text/javascript" src="/crts/public/js/jsdojo/dojo/dojo_layer.js" data-dojo-config="parseOnLoad: true"></script>
+    </head>
+    <body class="claro" id="pageTile">
+        
+
+        
+
+
+
+
+
+
+	<div id="m_Admin" class="menuTop" onmouseover="menuMouseover(event)">
+		  <div class="content1">
+				<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/admin.do">Servers</a>
+				<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/admin/fix.do">FIX Console</a>
+				<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/admin/jms.do">Cluster Messaging</a>
+			    <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/admin/clusterconfig.do">Cluster Configuration</a>
+                <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/admin/rasstatus.do">Report Server</a>
+				<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/admin/mail.do">Mail</a>
+				<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/adapter/adapterDetail.do">Adapter</a>
+			    <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/clusterfailover/clusterfailover.do">Cluster Failover</a>
+                
+		  </div>
+	</div>
+
+
+
+	<div id="m_Everywhere" class="menuTop" onmouseover="menuMouseover(event)">
+		  <div class="content1">
+				<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/everywhere/properties.do">Properties</a>
+                
+				<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/everywhere/monitor.do">Monitor</a>
+		  </div>
+	</div>
+
+
+
+	<div id="m_Dbs" class="menuTop" onmouseover="menuMouseover(event)">
+	  <div class="content1">
+			<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/db/drivers.do"><span class="menuTopItemText">Properties</span></a>
+			<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/db/connections.do" onmouseover="menuItemMouseover(event, 'm_Dbs_conns');"><span class="menuTopItemText">Connections</span><span class="menuTopItemArrow">&#9654;</span></a>
+			<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/db/locks.do"><span class="menuTopItemText">Locks</span></a>
+			<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/db/sqllogging.do"><span class="menuTopItemText">SQL Logger</span></a>
+	  </div>
+	</div>
+
+
+
+	<div id="m_Dgns" class="menuTop" onmouseover="menuMouseover(event)">
+	  <div class="content1">
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/version.do">Properties</a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/user.do" onmouseover="menuItemMouseover(event, 'm_Dgns_user');"><span class="menuTopItemText">User</span><span class="menuTopItemArrow">&#9654;</span></a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/log.do" onmouseover="menuItemMouseover(event, 'm_Dgns_log');"><span class="menuTopItemText">Logs</span><span class="menuTopItemArrow">&#9654;</span></a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue.do" onmouseover="menuItemMouseover(event, 'm_Dgns_cmd');"><span class="menuTopItemText">Command Queue</span><span class="menuTopItemArrow">&#9654;</span></a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/caches.do">Caches</a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/plugins.do">Plugins</a>
+          <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/blotter.do">Blotter Refresh</a>
+          <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/supportrequest.do" onmouseover="menuItemMouseover(event, 'm_Dgns_support');"><span class="menuTopItemText">Support Request</span><span class="menuTopItemArrow">&#9654;</span></a>
+		  
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/params.do">System Parameters</a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/workStatus.do" onmouseover="menuItemMouseover(event, 'm_Dgns_expert');"><span class="menuTopItemText">Expert View</span><span class="menuTopItemArrow">&#9654;</span></a>
+          <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/impRunDetail.do">Import Run</a>
+	  </div>
+	</div>
+
+
+
+	<div id="m_Mon" class="menuTop" onmouseover="menuMouseover(event)">
+	  <div class="content1">
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/monitor/summary.do">Summary</a>
+          <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/monitor/live.do">Live</a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/monitor/memory.do">Memory</a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/monitor/db.do">Database</a>
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/monitor/fix.do">FIX</a>
+          
+		  <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/monitor/alerts.do">Alerts</a>
+	  </div>
+	</div>
+
+
+	<div id='m_Support' class='menuTop content1'>
+		<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/supportrequest.do">Local Support Request</a>
+		<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/distributedsupportrequest.do">Clusterwide Support Request</a>
+	</div>
+
+
+
+
+
+
+
+  <div id='m_Dbs_conns' class='menuTop content1'>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/db/connections.do">Statistics</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/db/connections/detail.do">Connection Details</a>
+  </div>
+
+
+
+  <div id='m_Dgns_user' class='menuTop content1'>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/user.do">Specific User</a>
+    <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/sessions/display.do">User Sessions</a>
+  </div>
+
+
+  <div id='m_Dgns_log' class='menuTop content1'>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/log.do">Log Files</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/msglog.do">Message Log</a>
+  </div>
+
+
+	<div id='m_Dgns_support' class='menuTop content1'>
+		<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/supportrequest.do">Local Support Request</a>
+		<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/distributedsupportrequest.do">Clusterwide Support Request</a>
+	</div>
+
+
+  <div id='m_Dgns_cmd' class='menuTop content1'>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/combining.do">Combining</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/pending.do">Pending</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/running.do">Executing</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/controller.do">Active Controller</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/results.do">Pending Results</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/completed.do">Completed</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/scheduled.do">Scheduled</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/commandqueue/consolidated.do">Consolidated</a>
+  </div>
+
+
+  <div id='m_Dgns_expert' class='menuTop content1'>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/workStatus.do">Work Status</a>
+    <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/threadDump.do">Threads</a>
+    <a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/memanalysis.do">Memory</a>
+    
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/jms.do">Cluster Messaging</a>
+	<a name="com.crd.taglib.BEAN" class="menuTopItem" href="/crts/diagnostics/mbeans.do">MBeans</a>
+  </div>
+
+
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="header">
+    <div id="crdlogo" style="cursor: pointer;" onclick="return redirectTo('/crts/');">
+        <h1>&nbsp;</h1>
+    </div>
+    <div id='head1'>&nbsp;
+        <div id="head_a">&nbsp;</div>
+    </div>
+    <div id='head2'>
+        <div class="menuTopBar">
+            <a name="com.crd.taglib.BEAN" id="t_Admin" class="menuTopButton" href="/crts/admin.do" onmouseover="buttonMouseover(event, 'm_Admin');">Cluster</a>
+
+            
+
+            <a name="com.crd.taglib.BEAN" id="t_Database" class="menuTopButton" href="/crts/db/main.do" onmouseover="buttonMouseover(event, 'm_Dbs');">Database</a>
+            <a name="com.crd.taglib.BEAN" id="t_Diagnostics" class="menuTopButton" href="/crts/diagnostics/main.do" module="/diagnostics" onmouseover="buttonMouseover(event, 'm_Dgns');">Diagnostics</a>
+            <a name="com.crd.taglib.BEAN" id="t_Monitoring" class="menuTopButton" href="/crts/monitor/summary.do" onmouseover="buttonMouseover(event, 'm_Mon');">Monitor</a>
+            <script type='text/javascript'>
+                var node = $('t_Diagnostics');
+                if(node != null)
+                {
+                    Element.addClassName(node, "menuTopButtonSelected");
+                }
+            </script>
+            <div id="clusterName">
+                
+                    <div id='clusterConfigName'>CHARLES RIVER</div>
+                
+            </div>
+            <div id="alerts" ></div>
+            
+                <script type='text/javascript'>
+                    Event.observe(window, "load", startAlertPoller);
+                </script>
+            
+        </div>
+        <div id='menubar_b' class="blur">
+            <ul>
+                <li>
+                    <a style='border-left:none' class='topMenu' href="/crts/mypref.do">
+                        Preferences
+                    </a>
+                </li>
+                <li>
+                    <a class='topMenu' href="JavaScript:void(0)" onclick="launchHelp('/doc/ContextualHelp');">
+                        Help
+                    </a>
+                </li>
+                <li>
+                    <a class='topMenu' href="javascript:showPopup('/crts/about.do', 500, 700);">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a class='topMenu' href="/crts/logout.do">
+                        Log Out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+        
+            
+                <div id='clusterConfigUsage'>
+                    Test&nbsp;Cluster
+                </div>
+            
+        
+    
+</div>
+<!-- header -->
+
+            <div id='ackBack' style='display:none;'></div>
+            <div id='ajaxWait'>
+                <div id='waitMsg'>
+                    Please wait a moment...
+                </div>
+            </div>
+
+            <div id="content">
+
+                <div id="breadcrumb" >
+                    
+                </div>
+
+                <div id="contentAB">
+                    <div id="contentA">
+                        
+
+
+
+
+
+<ul class="servertabs">
+    <li>
+        <div class="serverslabel">
+            Servers
+        </div>
+        <ul id='clusterList'>
+            
+                
+                    
+                        <li><a onclick="refreshWithServer('c01201d1crnw0058081')">c01201d1crnw0058081</a></li>
+                    
+                    
+                
+            
+                
+                    
+                        <li><a onclick="refreshWithServer('c01201d1crnw0058082')">c01201d1crnw0058082</a></li>
+                    
+                    
+                
+            
+                
+                    
+                        <li><a onclick="refreshWithServer('c01201d1crnw0058083')">c01201d1crnw0058083</a></li>
+                    
+                    
+                
+            
+                
+                    
+                        <li><a onclick="refreshWithServer('c01201d1crnw0068081')">c01201d1crnw0068081</a></li>
+                    
+                    
+                
+            
+                
+                    
+                    
+                        <li class='selected'>c01201d1crnw0068082</li>
+                    
+                
+            
+                
+                    
+                        <li><a onclick="refreshWithServer('c01201d1crnw0068083')">c01201d1crnw0068083</a></li>
+                    
+                    
+                
+            
+        </ul>
+    </li>
+</ul>
+                    </div>
+                </div>
+
+                <div id="contentB">
+                    
+
+                    <div class="section">
+
+                        
+        <div class="section" >
+            <!-- Diagnostics Nav Tab section -->
+            
+
+
+<div class='sHead'>
+<ul class='pagenav'>
+    <li id='version'><a href="/crts/diagnostics/version.do">Properties</a></li>
+    <li id='user'><a href="/crts/diagnostics/user.do">User</a></li>
+    
+    <li id='filedumps'><a href="/crts/diagnostics/msglog.do">Logs</a></li>
+
+    <li id='commands'><a href="/crts/diagnostics/commandqueue.do">Command Queue</a></li>
+    <li id='caches'><a href="/crts/diagnostics/caches.do">Caches</a></li>
+    <li id='plugins'><a href="/crts/diagnostics/plugins.do">Plugins</a></li>
+    <li id='blotterRefresh'><a href="/crts/diagnostics/blotter.do">Blotter Refresh</a></li>
+    <li id='support'><a name="com.crd.taglib.BEAN" class="menuTopButton" href="/crts/diagnostics/supportrequest.do" onmouseover="buttonMouseover(event, 'm_Support');">Support Request</a></li>
+    
+    <li id='sysparams'><a href="/crts/diagnostics/params.do">System Parameters</a></li>
+    <li id='impRunDetail'><a href="/crts/diagnostics/impRunDetail.do">Import Run</a></li>
+</ul>
+<div class='dweeb' id='expert' style='position:absolute;right:0; top:-17px'><a href="/crts/diagnostics/workStatus.do">
+    Expert View&nbsp;&gt;</a>
+</div>
+</div>
+
+<script type='text/javascript'>
+    selectTab('blotterRefresh')
+</script>
+
+
+            <div class='sectionContent' id='blotterRefresh'>
+                
+
+
+
+
+
+
+
+
+
+<STYLE type="text/css">
+    .collapsed
+    {
+        display: none;
+    }
+    th img, td img
+    {
+        cursor: pointer;
+    }
+    .lightWarning {
+        color:red;
+    }
+</STYLE>
+<script>
+    function toggleAll()
+    {   var selElem = $('expandAll');
+        if(selElem.hasClassName("imgcollapsed"))
+        {
+            expandAll();
+            selElem.removeClassName('imgcollapsed');
+            selElem.addClassName("imgexpanded");
+            selElem.src = "/crts/public/images/minus3.gif";
+            selElem.alt= "Collapse All";
+        }else{
+            collapseAll();
+            selElem.removeClassName('imgexpanded');
+            selElem.addClassName("imgcollapsed");
+            selElem.src = "/crts/public/images/plus3.gif";
+            selElem.alt= "Expand All";
+        }
+    }
+    function expandAll()
+    {
+        $$('tr.collapsed').each(function(f){
+            f.removeClassName('collapsed');
+            f.addClassName('expanded');
+        });
+        $$('img.imgcollapsed').each(function(f){
+            f.removeClassName('imgcollapsed');
+            f.addClassName('imgexpanded');
+            f.src = "/crts/public/images/minus3.gif";
+            f.alt= "Collapse";
+        });
+
+    }
+    function collapseAll()
+    {
+        $$('tr.expanded').each(function(f){
+            f.removeClassName('expanded');
+            f.addClassName('collapsed');
+        });
+        $$('img.imgexpanded').each(function(f){
+            f.removeClassName('imgexpanded');
+            f.addClassName('imgcollapsed');
+            f.src = "/crts/public/images/plus3.gif";
+            f.alt= "Expand";
+        });
+
+    }
+    function showHideChilds(evt,parent)
+    {
+        var selElem = 'tr.'+parent;
+        $$(selElem).each(function(f){
+                if(f.hasClassName('collapsed'))
+                {
+                    f.removeClassName('collapsed');
+                    f.addClassName('expanded');
+                }else{
+                    f.removeClassName('expanded');
+                    f.addClassName('collapsed');
+                }
+            }
+        );
+        changepic(evt)
+
+    }
+
+    function changepic(evt) {
+        evt = (evt) ? evt : (window.event) ? window.event : "";
+        var uMe;
+        if (evt.srcElement) {
+            uMe = evt.srcElement;
+        } else if (evt.target) {
+            uMe = evt.target;
+        }
+        var check = uMe.src.toLowerCase();
+        if (check.lastIndexOf("plus3.gif") != -1)
+        {
+            uMe.src = "/crts/public/images/minus3.gif";
+            uMe.alt='Collapse';
+        }
+        else
+        {
+            uMe.src = "/crts/public/images/plus3.gif";
+            uMe.alt='Expand';
+        }
+    }
+
+    function popupForm(form){
+        var formName = 'formpopup' + (new Date()).getTime();
+        window.open('', formName, 'width=700,height=500,resizeable,scrollbars');
+        form.target = formName;
+        form.submit();
+    }
+</script>
+<h2 class="pageHeader">Blotter Refresh Configuration for c01201d1crnw0068082</h2>
+
+
+<div id="ackMsg">
+    
+
+    
+</div>
+<p/>
+
+
+    
+        
+            
+                
+                
+                
+                
+                
+                
+                
+                
+            
+        
+    
+
+
+
+<table>
+    <tr>
+        <td>&nbsp;</td>
+        <td width="50">&nbsp;</td>
+        <td align="right"/>
+    </tr>
+    <tr>
+        <td valign="top">
+            <table class="dataTbl" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <th scope="col" colspan="2">Details</th>
+                </tr>
+                <tr>
+                    <td scope="row">Number of push characters</td><td style="text-align:right">168895600</td>
+                </tr>
+                <tr>
+                    <td scope="row">Number of push messages</td><td style="text-align:right">19260</td>
+                </tr>
+                <tr>
+                    <td scope="row">Number of errors processing events</td><td style="text-align:right">369</td>
+                </tr>
+                <tr>
+                    <td scope="row">Number of other errors</td><td style="text-align:right">0</td>
+                </tr>
+            </table>
+        </td>
+        <td>&nbsp;</td>
+        <td valign="top">
+
+            <form method = "post" action="/crts/diagnostics/blotter.do">
+                <input type="hidden" name="OWASP_CSRFTOKEN" value="JKXE-ND6E-DY20-DXM4-CFDD-EBFV-NTF5-W7NZ"/>
+                <table class="dataTbl" cellpadding="0" cellspacing="0" border="0">
+                    <tr valign="middle">
+                        <th scope="col" colspan="3">Settings</th>
+                    </tr>
+                    <tr valign="middle">
+                        <td scope="row">Debug logging enabled</td><td class="spaceWide">&nbsp;</td>
+                        <td>
+                            
+                            
+                                <input  type="radio" name="DebugLogging" value="true">Yes&nbsp;&nbsp;
+                                <input  type="radio" name="DebugLogging" value="false" checked="">No
+                            
+                        
+                        </td>
+                    </tr>
+                    <tr valign="middle">
+                        <td scope="row">Debug logging level</td><td>&nbsp;</td>
+                        <td>
+                            <select name="DebugLoggingLevel" value="major_events">
+                                <option value="major_events">Major events, summary</option>
+                                <option value="all_events">All events, summary</option>
+                                <option value="all_detailed">All events, detailed</option>
+                                <option value="full">Full</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr valign="middle">
+                        <td scope="row">Debug session filter</td><td>&nbsp;</td>
+                        <td><input  maxlength="100" size="15" type="text" name="SessionDebugFilter" value=""/></td>
+                    </tr>
+                    <tr valign="middle">
+                        <td scope="row">Worker pool size</td><td>&nbsp;</td><td><input  maxlength="2" size="2" type="text" name="WorkerPoolSize" value="32"/></td>
+                    </tr>
+                    <tr valign="middle">
+                        <td scope="row">Blotter query report</td><td>&nbsp;</td><td><button class="btn" type="submit" name="generateAction">Generate</button></td>
+                    <tr>
+                        <td colspan="3" ><button type="submit" class="btn"  name="updateAction">Update</button></td>
+                    </tr>
+                </table>
+            </form>
+
+        </td>
+    </tr>
+</table>
+
+<p/>
+
+    
+    
+        <h3 class="header">1 Registered Sessions</h3>
+        <div class="scrollBarX">
+            <table class="dataTbl">
+                <tr>
+                    <th>
+                        <img id="expandAll" class="imgcollapsed" src="/crts/public/images/plus3.gif" onclick="toggleAll()" alt="Expand All" title="Expand All/Collapse All"/>
+                    </th>
+                    <th/>
+                    <th>User</th><th>Login Time</th>
+                    <th>Session ID</th>
+                    <th>Thread</th><th>Status</th>
+                    <th>Lag Time</th><th>Pending Events</th>
+                    <th>#Chars</th>
+                    <th>#Msgs</th><th>Qry Name</th>
+                    <th>Qry Time</th><th>#Ord</th>
+                    <th>#Sec</th><th>InMem</th>
+                    <th>Placements
+                    <th>Prompts</th><th>Predicate</th>
+                </tr>
+                
+                    
+                        
+                            <tr>
+                                <td><img class="imgcollapsed" src="/crts/public/images/plus3.gif" onclick="showHideChilds(event,'GRP1')" alt="Expand" title="Expand/Collapse"/></td>
+                                <td>
+                                    <form action="/crts/diagnostics/blotter/consistency.do" method="POST" >
+                                        <input type="hidden" name="OWASP_CSRFTOKEN" value="UA5E-JAL9-XRT5-1AZD-NGFC-U41A-QCOT-7S1K"/>
+                                        <input type='hidden' name='function' value='chk'/>
+                                        <input type='hidden' name='sessionId' value='0a98994b-9b52fa2c08793b23-19248b96e67'/>
+
+                                        <img src="/crts/public/images/bt_config.gif" onclick="popupForm(this.parentElement);return false;" alt="Check Consistency" title="Check Consistency"/>
+                                    </form>
+                                </td>
+                                <td>QATEST61</td><td>2024-10-01 11:36:04</td><td>0a98994b-9b52fa2c08793b23-19248b96e67</td>
+                                <td>3</td><td>Idle</td>
+                                <td>
+                                    
+                                        
+                                        
+                                            0
+                                        
+                                    
+                                </td>
+                                <td>0</td><td>14414728</td><td>1811</td>
+                                <td>2</td>
+                                <td>
+                                    
+                                        
+                                        
+                                            12
+                                        
+                                    
+                                </td>
+                                <td>463</td>
+                                <td>134</td>
+                                <td>
+                                    
+                                    
+                                        Memory
+                                    
+                                
+                                </td><td>N</td>
+                                <td>1</td>
+                                <td>None</td>
+                            </tr>
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            <tr class="collapsed GRP1">
+                                <td colspan="11"/>
+                                <td title="QryID 10594">Orders&#x20;created&#x20;Today</td><td>12</td><td>49</td>
+                                <td>36</td>
+                                <td>
+                                    
+                                    
+                                        Memory
+                                    
+                                
+                                </td>
+                                <td>N</td><td></td><td></td>
+                            </tr>
+                        
+                    
+                
+                    
+                        
+                        
+                            <tr class="collapsed GRP1">
+                                <td colspan="11"/>
+                                <td title="QryID 10600">Orders&#x20;for&#x20;a&#x20;Trade&#x20;Date&#x20;Range</td><td>0</td><td>414</td>
+                                <td>98</td>
+                                <td>
+                                    
+                                    
+                                        Memory
+                                    
+                                
+                                </td>
+                                <td>N</td><td>query10600_field1=2024-09-30;query10600_field2=2024-10-01;</td><td></td>
+                            </tr>
+                        
+                    
+                
+            </table>
+        </div>
+        <form id="checkAllForm" action="/crts/diagnostics/blotter/consistency.do" method="POST" >
+            <input type="hidden" name="OWASP_CSRFTOKEN" value="UA5E-JAL9-XRT5-1AZD-NGFC-U41A-QCOT-7S1K"/>
+            <input type='hidden' name='function' value='chkall'/>
+
+            <a href="#" onclick="popupForm(document.getElementById('checkAllForm')); return false;">Check Consistency of all sessions</a>
+        </form>
+
+    
+
+
+
+
+            </div>
+
+        </div>
+    
+
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                
+
+
+
+<span class="blurMore">
+   Copyright &copy; 1993 Charles River Systems, Inc. All rights reserved.
+   <br />
+   Version 23R3.0.8, Build 151
+   <br />
+   User: QATEST61 on 10.152.153.136/10.100.83.134:14908,
+
+<span id="sessTOPref" style="display:none">30</span>
+<div id="waSessTimeout" class="timeoutBox" style="display:none">
+   <b>Your WebAdmin session is about to expire</b>
+   <br>Your session will expire in&nbsp;<span id="dispSessTimeout" style="font-weight:bolder"></span>&nbsp;seconds
+   <br>Please click &#39;Continue&#39; to refresh your session or &#39;Log Out&#39; to exit WebAdmin
+   <br><button class="btn" onmouseover="btnMouseOver(this)" onmouseout="btnMouseOut(this)" onclick="contWASess();">Continue</button>&nbsp;&nbsp;
+   <button class="btn" onmouseover="btnMouseOver(this)" onmouseout="btnMouseOut(this)" onclick="endWASess();">Log Out</button>
+</div>
+
+
+            </div>
+        
+        
+    </body>
+</html>
+

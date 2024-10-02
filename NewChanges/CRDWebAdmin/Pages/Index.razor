@@ -1,0 +1,115 @@
+﻿@page "/"
+@using Data
+@inject WebAdminService WebAdminService
+
+
+<h2>Log Viewer</h2>
+
+<div class="form-group">
+    <label for="startDate">Start Date:</label>
+    <input type="datetime-local" id="startDate" name="startDate" @bind-value="startDate" class="form-control" />
+</div>
+<div class="form-group">
+    <label for="endDate">End Date:</label>
+    <input type="datetime-local" id="endDate" name="endDate" @bind-value="endDate" class="form-control" />
+</div>
+<button type="submit" class="btn btn-primary" @onclick="GetLogsAsync">Filter Logs</button>
+
+<table id="logTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Server Name</th>
+            <th>Timestamp</th>
+            <th>Level</th>
+            <th>Message</th>
+            <th>Exception</th>
+            <th>User</th>
+            <th>Component</th>
+            <th>Thread</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (logData == null || logData.Length == 0)
+        {
+            <tr>
+                <td colspan="8" class="text-center">No logs available</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var log in logData)
+            {
+                <tr>
+                    <td>@log.serverName</td>
+                    <td>@log.time</td>
+                    <td>@log.Level</td>
+                    <td>@log.message</td>
+                    <td>@log.exception</td>
+                    <td>@log.user</td>
+                    <td>@log.component</td>
+                    <td>@log.thread</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<h2>Blotter Data</h2>
+<button type="button" class="btn btn-primary" @onclick="GetBlotterDataAsync">Get Blotter Data</button>
+
+<table id="blotterTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            @if (blotterData != null && blotterData.Any())
+            {
+                @foreach (var header in blotterData[0].Keys)
+                {
+                    <th>@header</th>
+                }
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (blotterData == null || !blotterData.Any())
+        {
+            <tr>
+                <td colspan="100%" class="text-center">No blotter data available</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var row in blotterData)
+            {
+                <tr>
+                    @foreach (var cell in row.Values)
+                    {
+                        <td>@cell</td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    private LogEntry[] logData { get; set; }
+    private List<Dictionary<string, string>> blotterData { get; set; }
+    private DateTime startDate;
+    private DateTime endDate;
+
+    protected override async Task OnInitializedAsync()
+    {
+        endDate = DateTime.Now;
+        startDate = endDate.AddHours(-2);
+    }
+
+    private async Task GetLogsAsync()
+    {
+        logData = await WebAdminService.GetLogsAsync(startDate, endDate);
+    }
+
+    private async Task GetBlotterDataAsync()
+    {
+        blotterData = await WebAdminService.GetBlotterDataAsync();
+    }
+}
